@@ -1,0 +1,39 @@
+/*
+Asher Tadikonda
+December 15th, 2022
+CTEC 120 final part 1
+*/
+
+import java.util.Scanner; // program uses class Scanner
+
+public class Main
+{
+    public static void main(String[] args) {
+
+        Scanner console = new Scanner(System.in); //console is the scanner name
+        String name; //the users name
+        int firstnum; //users first digit
+        int secondnum; // users second digit
+        int sum; //the total of the first and the second digit
+
+        System.out.println("Please enter your name and I will tell you how many letters it consists of!");
+        name = console.next(); //the user inputs their name through the use of this scanner
+
+        System.out.println("Your name " + name + " has " + name.length() + " characters"); //name.length will count the characters
+
+        System.out.println("Please enter 2 positive numbers and I will return True if the sum of numbers is even of False if the sum is odd!");
+
+        System.out.println("Enter the first number!");
+        firstnum = console.nextInt(); //asks for the first digit
+
+        System.out.println("Enter the second number!");
+        secondnum = console.nextInt(); //asks for the second digit
+
+        sum = firstnum + secondnum; //initalize sum
+
+        if (sum %2 ==0) //makes sure the sum is divisible by two
+            System.out.println(sum + " The sum is Even!");
+        else
+            System.out.println(sum + " The sum is Odd!");
+
+    }
