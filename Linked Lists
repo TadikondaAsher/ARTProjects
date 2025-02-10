@@ -1,0 +1,79 @@
+package linkedliststarter;
+import java.util.*;
+
+public class LinkedListStarter {
+    public static void main(String[] args) {
+        LinkedList list = new LinkedList();
+
+        System.out.println("Current List:");
+        list.insert(18);
+        list.insert(45);
+        list.insert(12);
+        list.displayLL();
+
+        System.out.println("1 was added to the front:");
+        list.insertFront(1);
+        list.displayLL();
+
+        System.out.println("999 was added to the back:");
+        list.insertBack(999);
+        list.displayLL();
+    }
+
+    static class Node {
+        int data;
+        Node next;
+    }
+
+    static class LinkedList {
+        Node first, last;
+
+        public void insert(int data) {
+            Node node = new Node();
+            node.data = data;
+            node.next = null;
+            if (first == null) {
+                first = node;
+                last = node;
+            } else {
+                last.next = node;
+                last = node;
+            }
+        }
+
+        public void insertFront(int data) {
+            Node node = new Node();
+            node.data = data;
+            node.next = first;
+            first = node;
+            if (last == null) {
+                last = node;
+            }
+        }
+
+        public void insertBack(int data) {
+            Node node = new Node();
+            node.data = data;
+            node.next = null;
+            if (last != null) {
+                last.next = node;
+                last = node;
+                if (first == null) {
+                    first = node;
+                }
+            } else {
+                first = node;
+                last = node;
+            }
+        }
+
+        public void displayLL() {
+            Node current = first;
+            while (current != null) {
+                System.out.println(current.data);
+                current = current.next;
+            }
+            System.out.println("***");
+        }
+    }
+}
