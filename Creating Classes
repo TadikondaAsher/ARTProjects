@@ -1,0 +1,55 @@
+import java.util.Scanner;
+
+class Robot {
+    String name;
+    String color;
+    int weight;
+    public Robot(String name, String color, int weight)  {
+        this.name = "";
+        this.color = "";
+        this.weight = 100;
+    }
+
+    public String getName() {
+        return name;
+    }
+    public String getColor() {
+        return color;
+    }
+    public int getWeight() {
+        return weight;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setColor(String color) {
+        this.color = color;
+    }
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+    public void modifyAll() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Please enter Robot's name: ");
+        name = scanner.nextLine();
+        System.out.println("What color is " + name + "?");
+        color = scanner.nextLine();
+        System.out.println("How much does " + name + " weight? ");
+    }
+    public void displayAll() {
+        System.out.println("My name is " + getName());
+        System.out.println("My color is " + getColor());
+        System.out.println("My weight is " + getWeight());
+
+    }
+
+
+    public static void main(String[] args) {
+        Robot r1 = new Robot("Tom", "Red", 30);
+        Robot r2 = new Robot("Jerry", "Blue", 40);
+        Robot r3 = new Robot("Nibbles", "Gray", 100);
+        r3.modifyAll();
+        r3.displayAll();
+    }
+
+}
