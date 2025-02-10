@@ -1,0 +1,79 @@
+import java.util.Scanner;
+
+class Node {
+    int data;
+    Node next;
+
+    public Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+class Queue {
+    Node front, rear;
+
+    public Queue() {
+        this.front = this.rear = null;
+    }
+
+    void enqueue(int data) {
+        Node newNode = new Node(data);
+        if (this.rear == null) {
+            this.front = this.rear = newNode;
+        } else {
+            this.rear.next = newNode;
+            this.rear = newNode;
+        }
+    }
+
+    int dequeue() {
+        if (this.front == null) {
+            return Integer.MIN_VALUE;
+        }
+
+        int data = this.front.data;
+        this.front = this.front.next;
+
+        if (this.front == null) {
+            this.rear = null;
+        }
+
+        return data;
+    }
+
+    void displayQueue() {
+        Node current = this.front;
+        while (current != null) {
+            System.out.print(current.data + " ");
+            current = current.next;
+        }
+        System.out.println();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Queue oddQueue = new Queue();
+        Queue evenQueue = new Queue();
+
+        System.out.println("Enter 10 integers:");
+        for (int i = 0; i < 10; i++) {
+            int num = scanner.nextInt();
+            if (num % 2 == 0) {
+                evenQueue.enqueue(num);
+            } else {
+                oddQueue.enqueue(num);
+            }
+        }
+
+        System.out.println("Odd Queue (FIFO):");
+        oddQueue.displayQueue();
+
+        System.out.println("Even Queue (FIFO):");
+        evenQueue.displayQueue();
+
+        scanner.close();
+    }
+}
