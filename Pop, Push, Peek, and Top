@@ -1,0 +1,85 @@
+import java.util.Random;
+
+class Node {
+    int data;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+class Stack {
+    Node top;
+
+    void push(int data) {
+        Node newNode = new Node(data);
+        if (top == null) {
+            top = newNode;
+        } else {
+            newNode.next = top;
+            top = newNode;
+        }
+    }
+
+    int pop() {
+        if (top == null) {
+            throw new IllegalStateException("Stack is empty");
+        }
+        int data = top.data;
+        top = top.next;
+        return data;
+    }
+
+    int peek() {
+        if (top == null) {
+            throw new IllegalStateException("Stack is empty");
+        }
+        return top.data;
+    }
+
+    boolean isEmpty() {
+        return top == null;
+    }
+}
+
+public class StackComparison {
+    public static void main(String[] args) {
+        final int STACK_SIZE = 20;
+        Stack stack1 = new Stack();
+        Stack stack2 = new Stack();
+        Random random = new Random();
+
+        System.out.println("Loading Stack 1 with 20 integers... done.");
+        for (int i = 0; i < STACK_SIZE; i++) {
+            int randomNumber = random.nextInt(10) + 1;
+            stack1.push(randomNumber);
+        }
+
+        System.out.println("Loading Stack 2 with 20 integers... done.");
+        for (int i = 0; i < STACK_SIZE; i++) {
+            int randomNumber = random.nextInt(10) + 1;
+            stack2.push(randomNumber);
+        }
+
+        int timesStack1Higher = 0;
+        for (int i = 0; i < STACK_SIZE; i++) {
+            int topOfStack1 = stack1.peek();
+            int topOfStack2 = stack2.peek();
+
+            System.out.println("Checking top of each stack...");
+            System.out.println("Top of Stack 1 = " + topOfStack1 + " ... Top of Stack 2 = " + topOfStack2);
+
+            if (topOfStack1 > topOfStack2) {
+                timesStack1Higher++;
+                System.out.println("Stack One higher " + timesStack1Higher + " time(s) out of " + (i + 1));
+            } else {
+                System.out.println("Stacks are equal at this position.");
+            }
+
+            stack1.pop();
+            stack2.pop();
+        }
+    }
+}
