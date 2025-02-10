@@ -1,0 +1,52 @@
+public class Main {
+    public static void remove(int[] array, int length, int removeItem) {
+        if (length == 0) {
+            System.out.println("Array is empty.");
+            return;
+        }
+
+        // Print the original array.
+        System.out.print("Original array: ");
+        for (int i = 0; i < length; i++) {
+            System.out.print(array[i] + " ");
+        }
+        System.out.println();
+
+        int indexToRemove = -1; // Initialize the index to -1 (not found).
+
+        // Find the index of the first occurrence of removeItem.
+        for (int i = 0; i < length; i++) {
+            if (array[i] == removeItem) {
+                indexToRemove = i;
+                break; // Stop searching once we find the first occurrence.
+            }
+        }
+
+        if (indexToRemove == -1) {
+            System.out.println("Value " + removeItem + " not found in the array.");
+        } else {
+            // Shift the elements after the found index to the left to overwrite the removed item.
+            for (int i = indexToRemove; i < length - 1; i++) {
+                array[i] = array[i + 1];
+            }
+
+            // Decrease the length of the array by 1 to reflect the removal.
+            length--;
+
+            // Print the updated array after removing the item.
+            System.out.print("Array after removing " + removeItem + ": ");
+            for (int i = 0; i < length; i++) {
+                System.out.print(array[i] + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] array = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        int length = array.length;
+        int removeItem = 9;
+
+        remove(array, length, removeItem);
+    }
+}
