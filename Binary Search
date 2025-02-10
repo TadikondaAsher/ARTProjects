@@ -1,0 +1,64 @@
+import java.util.Scanner;
+
+
+public class Main {
+    public static void displayList(int[] arr) {
+        System.out.print("List: ");
+        for (int i : arr) {
+            System.out.print(i + " ");
+        }
+        System.out.println();
+    }
+
+    public static void selectionSort(int[] arr) {
+        int n = arr.length;
+        for (int i = 0; i < n - 1; i++) {
+            int minIndex = i;
+            for (int j = i + 1; j < n; j++) {
+                if (arr[j] < arr[minIndex]) {
+                    minIndex = j;
+                }
+            }
+            int temp = arr[i];
+            arr[i] = arr[minIndex];
+            arr[minIndex] = temp;
+        }
+    }
+
+    public static int binarySearch(int[] arr, int length, int target) {
+        int low = 0;
+        int high = length - 1;
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            if (arr[mid] == target) {
+                return mid; // Element found, return its index
+            } else if (arr[mid] < target) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+
+        return -1; // Element not found
+    }
+
+    public static void main(String[] args) {
+        int[] list = { 72, 420, 230, 140, 350, 60, 12, 721, 311, 7 };
+        displayList(list); // Display unsorted list
+
+        selectionSort(list); // Sort the list using selection sort
+        displayList(list); // Display the sorted list
+
+        Scanner console = new Scanner(System.in);
+        System.out.println("Enter an integer to search for in the list (0 to 1000):");
+        int searchItem = console.nextInt();
+
+        int result = binarySearch(list, list.length, searchItem);
+        if (result == -1) {
+            System.out.println("Not Found in list");
+        } else {
+            System.out.println(searchItem + " found!");
+        }
+    }
+}
