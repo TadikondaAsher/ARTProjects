@@ -1,0 +1,72 @@
+package stackll;
+
+import java.util.Scanner;
+
+class Node {
+    int data;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+class Stack {
+    Node top;
+
+    Stack() {
+        this.top = null;
+    }
+
+    void push(int data) {
+        Node newNode = new Node(data);
+        newNode.next = top;
+        top = newNode;
+    }
+
+    int pop() {
+        if (top == null) {
+            throw new IllegalStateException("Stack is empty");
+        }
+        int popped = top.data;
+        top = top.next;
+        return popped;
+    }
+
+    void display() {
+        Node temp = top;
+        while (temp != null) {
+            System.out.print(temp.data + " ");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Stack oddStack = new Stack();
+        Stack evenStack = new Stack();
+
+        System.out.println("Enter 10 integers:");
+
+        for (int i = 0; i < 10; i++) {
+            int num = scanner.nextInt();
+            if (num % 2 == 0) {
+                evenStack.push(num);
+            } else {
+                oddStack.push(num);
+            }
+        }
+
+        System.out.println("Odd numbers in Last In First Out (LIFO) order:");
+        oddStack.display();
+
+        System.out.println("Even numbers in Last In First Out (LIFO) order:");
+        evenStack.display();
+    }
+
+}
+
