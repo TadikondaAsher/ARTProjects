@@ -1,0 +1,124 @@
+import java.util.*;
+public class Battleship {
+    public static void main(String[] args) {
+        int gameBoardLength = 4;
+        char water = '-';
+        char ship = 'S';
+        char hit = 'X';
+        char miss = 'O';
+        int numShips = 3;
+
+        char [][] gameBoard = creategameBoard(gameBoardLength, water, ship, numShips);
+        printGameBoard(gameBoard, water, ship);
+        int undetectedShipNum = numShips;
+        while (undetectedShipNum > 0){
+            int[] guessCoor = getUserCoor(gameBoardLength);
+            char userLocationView = evalGuessGetTarget(guessCoor, gameBoard, ship, water, hit, miss);
+            if (userLocationView == hit){
+                undetectedShipNum--;
+            }
+            gameBoard = updateGame(gameBoard, guessCoor, userLocationView);
+            printGameBoard(gameBoard, water, ship);
+        }
+        System.out.println("You've won!");
+    }
+
+    private static char[][] updateGame(char[][] gameBoard, int[] guessCoor, char userLocationView) {
+        int row = guessCoor[0];
+        int col = guessCoor[1];
+        gameBoard[row][col] = userLocationView;
+        return gameBoard;
+    }
+
+    //Randomizer
+    private static char evalGuessGetTarget(int[] guessCoor, char[][] gameBoard, char ship, char water, char hit, char miss) {
+
+        String message;
+        int row = guessCoor[0];
+        int col = guessCoor[1];
+        char target = gameBoard[row][col];
+        if (target == ship){
+            message = "Hit!";
+            target = hit;
+        } else if (target == water){
+            message = "Miss!";
+            target = miss;
+        } else {
+            message = "ALready hit!";
+        }
+        System.out.println(message);
+        return target;
+    }
+
+    //Location
+    private static int[] getUserCoor(int gameBoardLength) {
+        int row;
+        int col;
+        do{
+            System.out.print("Row: ");
+            row = new Scanner(System.in).nextInt();
+        } while (row < 1 || row > gameBoardLength + 1);
+        do {
+            System.out.print("Column: ");
+            col = new Scanner(System.in).nextInt();
+        } while (col < 1 || col > gameBoardLength + 1);
+
+        return new int[]{row - 1, col - 1};
+    }
+
+    //Grid
+    private static void printGameBoard(char[][] gameBoard, char water, char ship) {
+        int gameBoardLength = gameBoard.length;
+        System.out.print("  ");
+        for (int i = 0; i < gameBoardLength; i++){
+            System.out.print(i + 1 + " ");
+        }
+            System.out.println();
+        for (int row = 0; row < gameBoardLength; row++){
+            System.out.print(row + 1 + " ");
+            for (int col = 0; col < gameBoardLength; col++){
+                char position = gameBoard[row][col];
+                if (position == ship){
+                    System.out.print(water + " ");
+                } else{
+                    System.out.print(position + " ");
+                }
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
+
+    
+    private static char[][] creategameBoard(int gameBoardLength, char water, char ship, int numShips) {
+        char [][] gameBoard = new char[gameBoardLength][gameBoardLength];
+        for (char[] row: gameBoard){
+            Arrays.fill(row, water);
+        }
+        return placeShips(gameBoard, numShips, water, ship);
+    }
+
+    //Ship
+    private static char[][] placeShips(char[][] gameBoard, int numShips, char water, char ship) {
+        int placeShips = 0;
+        int gameBoardLength = gameBoard.length;
+        while (placeShips < numShips){
+            int[] location = generateShipCoor(gameBoardLength);
+            char possiblePlacement = gameBoard[location[0]][location[1]];
+            if (possiblePlacement == water) {
+                gameBoard[location[0]][location[1]] = ship;
+            }    placeShips++;
+
+        }
+        return gameBoard;
+    }
+
+    //Randomizer
+    private static int[] generateShipCoor(int gameBoardLength) {
+        int[] coordinates = new int[2];
+        for (int i = 0; i < coordinates.length; i++){
+            coordinates[i] = new Random().nextInt(gameBoardLength);
+        }
+        return coordinates;
+    }
+}
