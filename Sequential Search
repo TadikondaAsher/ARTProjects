@@ -1,0 +1,21 @@
+public class Main {
+    public static void main(String args[]) {
+        int[] numbers = {77, 82, 96, 53, 85};
+        int searchItem = 96;
+        int index = seqSearch(numbers, searchItem);
+
+        if (index == -1)
+            System.out.println(searchItem + " NOT found.");
+        else
+            System.out.println(searchItem + " found at index " + index);
+    }
+    public static int seqSearch(int[] array, int num) {
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == num) {
+                return i;
+            }
+        }
+        return -1;
+    }
+}
+
